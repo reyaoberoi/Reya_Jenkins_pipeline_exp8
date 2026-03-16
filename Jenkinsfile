@@ -3,24 +3,31 @@ pipeline {
 
     stages {
 
-        stage('Create JOB_1 Directory') {
+        stage('Delete Old Folder') {
             steps {
-                sh 'mkdir -p JOB_1'
-                echo 'JOB_1 directory created'
+                bat '''
+                IF EXIST C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Task2_Pipeline\\JOB_1 (
+                    rmdir /s /q C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Task2_Pipeline\\JOB_1
+                )
+                '''
             }
         }
 
-        stage('Create JOB_2 Directory') {
+        stage('Create JOB_1') {
             steps {
-                sh 'mkdir -p JOB_1/JOB_2'
-                echo 'JOB_2 directory created inside JOB_1'
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Task2_Pipeline\\JOB_1'
             }
         }
 
-        stage('Create JOB_3 Directory') {
+        stage('Create JOB_2') {
             steps {
-                sh 'mkdir -p JOB_1/JOB_2/JOB_3'
-                echo 'JOB_3 directory created inside JOB_2'
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Task2_Pipeline\\JOB_1\\JOB_2'
+            }
+        }
+
+        stage('Create JOB_3') {
+            steps {
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Task2_Pipeline\\JOB_1\\JOB_2\\JOB_3'
             }
         }
 
