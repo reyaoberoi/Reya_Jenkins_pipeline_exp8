@@ -1,30 +1,37 @@
-
 pipeline {
     agent any
 
     stages {
 
-        stage('Pull from Git') {
+        stage('Clean Old Directories') {
             steps {
-                echo 'Code pulled from GitHub repository'
+                bat '''
+                IF EXIST C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1 (
+                    rmdir /s /q C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1
+                )
+                '''
+                echo 'Old folders deleted if they existed'
             }
         }
 
-        stage('Build') {
+        stage('Create JOB_1') {
             steps {
-                echo 'Building the project...'
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1'
+                echo 'JOB_1 created'
             }
         }
 
-        stage('Test') {
+        stage('Create JOB_2') {
             steps {
-                echo 'Running tests...'
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1\\JOB_2'
+                echo 'JOB_2 created inside JOB_1'
             }
         }
 
-        stage('Deploy') {
+        stage('Create JOB_3') {
             steps {
-                echo 'Deploying application...'
+                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1\\JOB_2\\JOB_3'
+                echo 'JOB_3 created inside JOB_2'
             }
         }
 
@@ -32,10 +39,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Directory structure created successfully'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed'
         }
     }
 }
