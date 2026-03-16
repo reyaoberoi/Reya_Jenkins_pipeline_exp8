@@ -3,46 +3,26 @@ pipeline {
 
     stages {
 
-        stage('Clean Old Directories') {
+        stage('Create JOB_1 Directory') {
             steps {
-                bat '''
-                IF EXIST C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1 (
-                    rmdir /s /q C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1
-                )
-                '''
-                echo 'Old folders deleted if they existed'
+                sh 'mkdir -p JOB_1'
+                echo 'JOB_1 directory created'
             }
         }
 
-        stage('Create JOB_1') {
+        stage('Create JOB_2 Directory') {
             steps {
-                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1'
-                echo 'JOB_1 created'
+                sh 'mkdir -p JOB_1/JOB_2'
+                echo 'JOB_2 directory created inside JOB_1'
             }
         }
 
-        stage('Create JOB_2') {
+        stage('Create JOB_3 Directory') {
             steps {
-                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1\\JOB_2'
-                echo 'JOB_2 created inside JOB_1'
+                sh 'mkdir -p JOB_1/JOB_2/JOB_3'
+                echo 'JOB_3 directory created inside JOB_2'
             }
         }
 
-        stage('Create JOB_3') {
-            steps {
-                bat 'mkdir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Reya_Pipeline_exp8\\JOB_1\\JOB_2\\JOB_3'
-                echo 'JOB_3 created inside JOB_2'
-            }
-        }
-
-    }
-
-    post {
-        success {
-            echo 'Directory structure created successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
-        }
     }
 }
